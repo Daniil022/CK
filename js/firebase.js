@@ -6,14 +6,14 @@ import {
   getFirestore, doc, onSnapshot, setDoc, getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// Конфиг
+// Конфиг из firebase-config.js
 const firebaseConfig = window.FIREBASE_CONFIG || {
-  apiKey: "AIzaSyAjP2Ny_xRIhMwoVZ-HWiW7nxlAIUV3HIo",
-  authDomain: "sk-terminal.firebaseapp.com",
-  projectId: "sk-terminal",
-  storageBucket: "sk-terminal.firebasestorage.app",
-  messagingSenderId: "286319815156",
-  appId: "1:286319815156:web:1d5901ca091894477271a1"
+  apiKey: "AIzaSyCZdvLtn-QcJXFWRI9OWHui6ksOlWr9NUM",
+  authDomain: "ck-terminal.firebaseapp.com",
+  projectId: "ck-terminal",
+  storageBucket: "ck-terminal.firebasestorage.app",
+  messagingSenderId: "834178907422",
+  appId: "1:834178907422:web:3b4805683cc4bac6599d0f"
 };
 
 let firebaseReady = false;
@@ -25,7 +25,7 @@ try {
   cloudDoc = doc(db, 'sk', 'shared');
   presenceDoc = doc(db, 'sk', 'presence');
   firebaseReady = true;
-  console.log('✅ Firebase OK');
+  console.log('✅ Firebase OK — проект:', firebaseConfig.projectId);
 } catch (e) {
   console.error('❌ Firebase:', e);
 }
@@ -53,12 +53,12 @@ function updateCloudStatus(state) {
 
 if (firebaseReady) {
 
-  // ═══════════ РУЧНАЯ ЗАГРУЗКА (для экрана логина) ═══════════
+  // ═══════════ РУЧНАЯ ЗАГРУЗКА ═══════════
   window._manualPullCloud = async function() {
     if (!firebaseReady || !cloudDoc) throw new Error('Firebase не готов');
     const snap = await getDoc(cloudDoc);
     if (!snap.exists()) {
-      console.log('Облако пусто');
+      console.log('Облако пусто — новый проект');
       return;
     }
     const d = snap.data();
@@ -72,7 +72,7 @@ if (firebaseReady) {
     console.log('✅ Загружено. Сотрудников:', Object.keys(DB.get('users', {})).length);
   };
 
-  // ═══════════ СТАРТ СИНХРОНИЗАЦИИ ═══════════
+  // ═══════════ СТАРТ ═══════════
   window.startCloud = async function() {
     if (!window.CURRENT_USER) {
       toast('Сначала войди', 'error');
@@ -181,14 +181,14 @@ if (firebaseReady) {
     _pushTimer = setTimeout(() => { window.pushCloud(false); }, 800);
   };
 
-  // Автоподключение если было включено
+  // Автоподключение
   if (DB.get('cloudMode', false)) {
     setTimeout(() => {
       if (window.CURRENT_USER) window.startCloud();
     }, 1000);
   }
 
-  // Пульс каждую минуту
+  // Пульс
   setInterval(() => {
     if (window.CLOUD_MODE) window.updatePresence();
   }, 60000);

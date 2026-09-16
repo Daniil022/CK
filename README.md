@@ -4,6 +4,6 @@
 
 ## 🔗 Ссылка
 
-**Открыть:** https://daniil022.github.io/sk-terminal/
+**Открыть:** https://daniil022.github.io/СК/
 
 ## 📁 Структура проекта

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1e4976">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="СК РФ">
+<link rel="manifest" href="./manifest.json">
+<link rel="stylesheet" href="./css/style.css">
+<title>СК РФ — Терминал</title>
+</head>
+<body>
+
+<div class="boot-error" id="bootError"></div>
+
+<!-- ЭКРАН ВХОДА -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <h2>⚖️ СК РФ</h2>
+    <div class="login-sub" id="loginSub">Загрузка сотрудников...</div>
+    <div id="userList"></div>
+    <button class="gray" onclick="cloudRefresh()" style="width:100%;margin-top:8px">🔄 Обновить список</button>
+    <div class="hint" style="text-align:center;margin-top:12px">
+      Себя не видишь? Попроси админа добавить.
+    </div>
+  </div>
+</div>
+
+<!-- МОДАЛКА ПАРОЛЯ -->
+<div class="modal" id="modalPwd">
+  <div class="modal-box pwd-modal-box">
+    <h3>🔐 Вход</h3>
+    <div class="pwd-who" id="pwdWho">—</div>
+    <label>Пароль</label>
+    <input id="pwdInput" type="password" onkeypress="if(event.key==='Enter')submitPwd()">
+    <div id="pwdError" style="color:var(--danger);font-size:12px;text-align:center;min-height:16px;margin-top:8px"></div>
+    <div class="row" style="margin-top:8px">
+      <button class="green" onclick="submitPwd()" style="flex:2">🔐 Войти</button>
+      <button class="gray" onclick="cancelPwd()" style="flex:1">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<!-- ШАПКА -->
+<div class="topbar">
+  <h1 style="flex:1;border:none;padding:0;text-align:left">СК РФ — ТЕРМИНАЛ</h1>
+  <div class="user-info" id="userInfo"></div>
+  <div class="status">
+    <span id="saveDot" class="dot offline"></span>
+    <span id="saveText">Офлайн</span>
+  </div>
+</div>
+
+<div class="tabs" id="tabBar"></div>
+<div id="panels"></div>
+
+<!-- МОДАЛКА ПОЛЯ -->
+<div class="modal" id="modalField">
+  <div class="modal-box">
+    <h3 id="mfTitle">Поле</h3>
+    <label>Название</label>
+    <input id="mfLabel">
+    <label>Тип</label>
+    <select id="mfType">
+      <option value="text">Строка</option>
+      <option value="textarea">Большое поле</option>
+      <option value="date">Дата</option>
+      <option value="time">Время</option>
+      <option value="number">Число</option>
+      <option value="select">Список</option>
+    </select>
+    <div id="mfOptionsWrap" style="display:none">
+      <label>Варианты (через запятую)</label>
+      <input id="mfOptions">
+    </div>
+    <label>Подсказка</label>
+    <input id="mfPlaceholder">
+    <div class="row" style="margin-top:12px">
+      <button class="green" onclick="mfSave()">Сохранить</button>
+      <button class="gray" onclick="mfClose()">Отмена</button>
+      <button class="red" onclick="mfDelete()">Удалить</button>
+    </div>
+  </div>
+</div>
+
+<!-- МОДАЛКА РЕДАКТИРОВАНИЯ ЗАПИСИ -->
+<div class="modal" id="modalEditItem">
+  <div class="modal-box">
+    <h3>Редактирование</h3>
+    <div id="meFields"></div>
+    <div class="row" style="margin-top:12px">
+      <button class="green" onclick="meSave()">Сохранить</button>
+      <button class="gray" onclick="meClose()">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<!-- МОДАЛКА ПРОФИЛЯ ФИГУРАНТА -->
+<div class="modal" id="modalProfile">
+  <div class="modal-box" id="profileBox"></div>
+</div>
+
+<!-- МОДАЛКА "КТО ОНЛАЙН" -->
+<div class="modal" id="modalOnline">
+  <div class="modal-box">
+    <h3>👥 Сотрудники онлайн</h3>
+    <div id="onlineBox"></div>
+    <button class="gray" onclick="document.getElementById('modalOnline').classList.remove('show')" style="margin-top:12px">Закрыть</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<input type="file" id="impFile" accept=".json" style="display:none" onchange="impAll(event)">
+
+<div class="footer">
+  <span>СК РФ • v1.0</span>
+  <span id="footerTime"></span>
+</div>
+
+<!-- Порядок загрузки скриптов ВАЖЕН -->
+<script src="./js/utils.js"></script>
+<script src="./js/db.js"></script>
+<script src="./js/panels.js"></script>
+<script src="./js/admin.js"></script>
+<script src="./js/auth.js"></script>
+<script src="./js/main.js"></script>
+
+<!-- Firebase — модуль, грузится отдельно -->
+<script type="module" src="./js/firebase.js"></script>
+
+</body>
+</html>

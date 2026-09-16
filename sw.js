@@ -1,4 +1,4 @@
-const CACHE = 'sk-terminal-v1';
+const CACHE = 'sk-terminal-v2';
 
 const ASSETS = [
   './',

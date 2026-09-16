@@ -1,10 +1,10 @@
 // ⚠️ Firebase конфиг
-// Можно публиковать — apiKey публичный по дизайну Google
+// apiKey публичный, можно публиковать
 window.FIREBASE_CONFIG = {
-  apiKey: "AIzaSyAjP2Ny_xRIhMwoVZ-HWiW7nxlAIUV3HIo",
-  authDomain: "sk-terminal.firebaseapp.com",
-  projectId: "sk-terminal",
-  storageBucket: "sk-terminal.firebasestorage.app",
-  messagingSenderId: "286319815156",
-  appId: "1:286319815156:web:1d5901ca091894477271a1"
+  apiKey: "AIzaSyCZdvLtn-QcJXFWRI9OWHui6ksOlWr9NUM",
+  authDomain: "ck-terminal.firebaseapp.com",
+  projectId: "ck-terminal",
+  storageBucket: "ck-terminal.firebasestorage.app",
+  messagingSenderId: "834178907422",
+  appId: "1:834178907422:web:3b4805683cc4bac6599d0f"
 };
